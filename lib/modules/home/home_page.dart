@@ -9,7 +9,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final controller = HomeController();
+  late final controller = HomeController();
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +18,13 @@ class _HomePageState extends State<HomePage> {
         title: const Text("Flutter Arch MVC"),
       ),
       body: Center(
-        child: Text("My count is ${controller.data.value}"),
+        child: ValueListenableBuilder(
+            valueListenable: controller.valueNotifier,
+            builder: (_, count, __) => Text("My count is ${count.value}")),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           controller.increment();
-          setState(() {});
         },
         child: const Icon(Icons.add),
       ),
